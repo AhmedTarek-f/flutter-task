@@ -27,12 +27,21 @@ class ProductItemDetails extends StatelessWidget {
             ratingStyle: AppFonts.fontSize18Medium.copyWith(color: AppColors.gray),
             starIconSize: 26.r,
           ),
-          SizedBox(height: 18.h,),
+          const RSizedBox(height: 16,),
+          Text(
+            "Product Category",
+            style: AppFonts.fontSize18SemiBold,
+          ),
+          Text(
+            productData.category,
+            style: AppFonts.fontSize16Medium.copyWith(color: AppColors.black.withValues(alpha: 0.7)),
+          ),
+          const RSizedBox(height: 16,),
           Text(
             "Product Details",
             style: AppFonts.fontSize18SemiBold,
           ),
-          SizedBox(height: 8.h,),
+          const RSizedBox(height: 4,),
           Text(
             productData.description,
             style: AppFonts.fontSize16Medium.copyWith(color: AppColors.black.withValues(alpha: 0.7)),
