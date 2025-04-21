@@ -17,7 +17,7 @@ A store app that displays on the home screen the product list and on tapping any
 
 ## 📦 Tech Stack
 
-- **Flutter**
+- **Flutter(3.27.3 Stable Channel)**
 - **Dart**
 - **State Management**: Bloc\Cubit
 - **Backend**: REST API
