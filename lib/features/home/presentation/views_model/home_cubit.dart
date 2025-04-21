@@ -8,7 +8,11 @@ class HomeCubit extends Cubit<HomeState> {
     onInit();
   }
 
-  List<ProductModel> productsList = [];
+  List<ProductModel> allProductsList = [];
+  List<ProductModel> searchProductsList = [];
+  List<List<ProductModel>> listOfCategoryProductsList = [];
+  List<String> categoriesList = [];
+  bool isSearchFieldOpened = false;
   void onInit(){
     getAllProducts();
   }
@@ -16,7 +20,9 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getAllProducts() async {
     try{
       emit(FetchProductsLoadingState());
-      productsList = await HomeRepository.fetchProducts();
+      allProductsList = await HomeRepository.fetchProducts();
+      getCategoriesList();
+      getCategoryProductsList();
       emit(FetchProductsSuccessState());
     }
     catch(e){
@@ -24,4 +30,33 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  void productsSearch({required String productTitle}){
+    searchProductsList.clear();
+    if((productTitle.isNotEmpty) && productTitle.trim() != "" ){
+      final List<ProductModel> matchedList = allProductsList.where((product) => product.title.toLowerCase().contains(productTitle)).toList();
+      searchProductsList.addAll(matchedList);
+    }
+    emit(ChangeSearchFieldValueState());
+  }
+
+  void toggleSearchField(){
+    isSearchFieldOpened = !isSearchFieldOpened;
+    searchProductsList.clear();
+    emit(ToggleSearchFieldState());
+    emit(ChangeSearchFieldValueState());
+  }
+
+  void getCategoriesList(){
+    categoriesList = allProductsList.map((product) => product.category).toList();
+    categoriesList = categoriesList.toSet().toList();
+    categoriesList.insert(0, "All");
+  }
+
+  void getCategoryProductsList(){
+    listOfCategoryProductsList.add(allProductsList);
+   for(int i =1; i<categoriesList.length; i++){
+     final categoryProductsList = allProductsList.where((product)=> product.category == categoriesList[i]).toList();
+     listOfCategoryProductsList.add(categoryProductsList);
+   }
+  }
 }
