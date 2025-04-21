@@ -9,4 +9,5 @@ final class FetchProductsFailureState extends HomeState {
   const FetchProductsFailureState({required this.errorMessage});
   final String errorMessage;
 }
-
+final class ToggleSearchFieldState extends HomeState {}
+final class ChangeSearchFieldValueState extends HomeState {}
