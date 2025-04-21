@@ -5,5 +5,10 @@ abstract class AppTheme{
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.white,
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.primary,
+      selectionHandleColor: AppColors.primary,
+      selectionColor: AppColors.primary.withValues(alpha: 0.5)
+    )
   );
 }
